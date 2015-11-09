@@ -1,0 +1,109 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Thyme Seed Starter Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!--<link rel="stylesheet" type="text/css" media="all" href="../../css/stsm.css" th:href="@{/css/stsm.css}"/>-->
+    <title>请求方法列表</title>
+    <script th:src="@{/js/jquery-1.9.1.js}"></script>
+    <script th:src="@{/js/jquery.json-2.4.js}"></script>
+</head>
+
+<body>
+
+<div style="margin: 0;padding: 0;text-align: center">
+    <h3 th:text="${controllerName}+'的方法列表'+${methodSize}+'个'"></h3>
+
+</div>
+<div style="width:800px;">
+    <ul>
+        <li th:each="method:${methodList}">
+            <h3 th:text="'第'+(${methodStat.index}+1)+'个：'+${method.methodName}"></h3>
+
+            <div style="width:800px;">
+                <p th:text="'所属控制器：'+${method.controllerName}"></p>
+
+                <p th:text="'请求URL：'+${method.requestUrl}"></p>
+
+                <p th:text="'请求方式：'+${method.requestType}"></p>
+
+
+                <div>
+                    <p>方法参数列表：</p>
+                    <ul>
+                        <li th:each="param:${method.classJsonList}">
+                            <p th:text="'class: '+${param.className}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div style="margin: 10px">
+                    <label>
+                        访问地址：<input type="text" style="width: 500px;border-radius: 5px" th:value="${method.requestHost}"
+                                    th:id="'reqUrl'+${methodStat.index}"/>
+                    </label>
+                </div>
+                <div style="margin: 10px" th:id="'req'+${methodStat.index}">请求方式：
+                    <label><input type="radio" th:name="'reqType'+${methodStat.index}" value="GET" checked="true"/> GET</label>
+                    <label><input type="radio" th:name="'reqType'+${methodStat.index}" value="POST"/> POST</label>
+                </div>
+                <div style="margin: 10px;">
+                    <label>
+                        请求内容：<input type="text" style="width: 500px;border-radius: 5px" th:id="'reqText'+${methodStat.index}"/>
+                    </label>
+                </div>
+
+                <div style="margin: 10px">
+                    <label>
+                        响应内容：<textarea style="width: 500px;height: 100px;border-radius: 5px;"
+                                       th:id="'respText'+${methodStat.index}"></textarea>
+                    </label>
+                </div>
+
+                <div style="margin: 10px;text-align: center">
+                    <button style="color: white;width: 150px;height: 35px;border-radius: 5px;font-size:24px;border-width: 1px;background-color: royalblue" type="button" th:onclick="'doRequest('+${methodStat.index}+')'">
+                        测试
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<br/>
+
+<div>
+    <h3><a th:href="${requestHost}+'/spring-common/index'">查看所有</a></h3>
+</div>
+<script type="application/javascript">
+
+    function doRequest(indexValue) {
+        var val_reqtype = $('#req' + indexValue + ' label input[name="reqType' + indexValue + '"]:checked').val();
+        var dataStr = $("#reqText" + indexValue).val().toString();
+        try {
+            dataStr = eval("(" + dataStr + ")");
+            var reqUrl = $("#reqUrl" + indexValue).val();
+            if (val_reqtype == "POST") {
+                dataStr = JSON.stringify(dataStr);
+            }
+        } catch (e) {
+            alert(e);
+            return;
+        }
+        $.ajax({
+            type: val_reqtype,
+            url: reqUrl,
+            data: dataStr,
+            contentType: "application/json",
+            success: function (data) {
+                $("#respText" + indexValue).val(JSON.stringify(data));
+            },
+            error: function () {
+                alert("发送请求失败。");
+            }
+        });
+
+    }
+
+</script>
+</body>
+</html>

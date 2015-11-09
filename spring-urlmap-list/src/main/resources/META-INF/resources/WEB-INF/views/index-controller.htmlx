@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Thyme Seed Starter Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!--<link rel="stylesheet" type="text/css" media="all" href="../../css/stsm.css" th:href="@{/css/stsm.css}"/>-->
+    <title>请求方法列表</title>
+    <script th:src="@{/js/jquery-1.9.1.js}"></script>
+    <script th:src="@{/js/jquery.json-2.4.js}"></script>
+</head>
+
+<body>
+
+<div>
+    <div style="margin: 0;padding: 0;text-align: center"><h1>Controller列表</h1></div>
+    <div style="overflow-y: scroll">
+        <ul>
+            <li th:each="count:${countList}">
+                    <a th:href="${requestHost}+'/spring-common/indexMethod?controllerName='+${count.controllerName}" target="_blank">
+                    <h3 th:text="${count.controllerName}"></h3>
+                    </a>
+                    <h4 th:text="'共'+${count.size}+'个方法'"></h4>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<br/>
+
+<div>
+    <h3><a th:href="${requestHost}+'/spring-common/index'">查看所有</a></h3>
+</div>
+</body>
+</html>
