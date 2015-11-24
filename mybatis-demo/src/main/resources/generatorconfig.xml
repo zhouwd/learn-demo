@@ -25,7 +25,7 @@
         <!-- type="XMLMAPPER" 生成xml文件，接口依赖xml文件。MIXEDMAPPER：混合模式。ANNOTATEDMAPPER：注解模式。建议使用XMLMAPPER形式。  但是我们单位领导比较奇葩，特别喜欢用注解。没辙。-->
         <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="test.dao"  targetProject="src\test\java"/>
 
-        <table tableName="%">
+        <table tableName="%" dmoSuffix="DMO" daoSuffix="DAO">
             <generatedKey column="id" sqlStatement="Mysql"/>
         </table>
     </context>

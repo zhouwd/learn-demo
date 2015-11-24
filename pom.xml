@@ -30,6 +30,7 @@
         <module>mybatis-demo</module>
         <module>common-util</module>
         <module>java-base</module>
+        <module>maven-plugin-demo</module>
     </modules>
 
 
