@@ -3,6 +3,7 @@ package com.joe.jade4j.servlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.joe.jade4j.pojo.Book;
 import de.neuland.jade4j.Jade4J;
+import de.neuland.jade4j.JadeConfiguration;
+import de.neuland.jade4j.template.FileTemplateLoader;
 import de.neuland.jade4j.template.JadeTemplate;
+import de.neuland.jade4j.template.TemplateLoader;
 
 
 public class JadeServlet extends HttpServlet {
@@ -34,19 +38,12 @@ public class JadeServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-//		URL url = JadeServlet.class.getClassLoader().getResource("/");
-//		File file = new File(url.getPath());
-//		File parentFile = new File(file.getParent());
-//		TemplateLoader loader = new FileTemplateLoader(file.getPath(), "UTF-8");
-//		config.setTemplateLoader(loader);
-//		JadeTemplate template = config.getTemplate("/index");
-//		JadeConfiguration config = new JadeConfiguration();
-//		TemplateLoader loader = new FileTemplateLoader("/templates/", "UTF-8");
-//		config.setTemplateLoader(loader);
-		File file = new File("testzd");
-		System.out.println(file.getAbsolutePath());
-		file.mkdir();
-		JadeTemplate template = Jade4J.getTemplate("index");
+		URL url = JadeServlet.class.getClassLoader().getResource("/");
+		File file = new File(url.getPath());
+		TemplateLoader loader = new FileTemplateLoader(file.getPath(), "UTF-8");
+		JadeConfiguration config = new JadeConfiguration();
+		config.setTemplateLoader(loader);
+		JadeTemplate template = config.getTemplate("/index");
 		String html = Jade4J.render(template, getMap());
 
 		System.out.println(html);
