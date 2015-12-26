@@ -7,7 +7,18 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-
+    <filter>
+        <filter-name>setCharacterEncoding</filter-name>
+        <filter-class>com.joe.jade4j.common.EncodeFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>setCharacterEncoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>appServlet</servlet-name>
         <servlet-class>com.joe.jade4j.servlet.JadeServlet</servlet-class>

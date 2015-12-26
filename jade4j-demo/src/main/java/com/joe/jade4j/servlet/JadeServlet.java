@@ -35,6 +35,7 @@ public class JadeServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String jadaPath=getServletContext().getRealPath("/templates");
 		TemplateLoader loader = new FileTemplateLoader(jadaPath, "UTF-8");
@@ -53,11 +54,14 @@ public class JadeServlet extends HttpServlet {
 		List<Book> books = new ArrayList<Book>();
 		books.add(new Book("The Hitchhiker's Guide to the Galaxy", 5.70, true));
 		books.add(new Book("Life, the Universe and Everything", 5.60, false));
-		books.add(new Book("The Restaurant at the End of the Universe", 5.40, true));
+		books.add(new Book("The Restaurant at 周文冬", 5.40, true));
 
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("books", books);
 		model.put("pageName", "My Bookshelf");
+		model.put("temp", "<div>嵌<span style='color:green'>入</span>测试</div>");
+		model.put("flag", "test");
+		model.put("usingJade", true);
 		return  model;
 	}
 

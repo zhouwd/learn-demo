@@ -1,9 +1,99 @@
-doctype html
+
+doctype html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN"
 html
-  head
-    title= pageName
-  body
-    ol#books
-      for book in books
-        if book.available
-          li #{book.name} for #{book.price}$
+    head
+        title mysite - #{pageName}
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+        link(rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css")
+        link(rel="stylesheet" href="/stylesheets/bootstrap-image-gallery.min.css")
+        style.
+            section {
+                margin:20px auto;
+                border:1px #eaeaea solid;
+                width:80%;
+                height:200px;
+            }
+            code {
+
+            }
+
+
+
+    - var authenticated = true
+    body(class=authenticated ? 'authed' : 'anon')
+        p
+            | 注意：
+            ul
+                li 1，严格控制缩进，tab或者空格只能使用一种。
+                li 2，详细的api，请查看
+                    a(href='http://jade-lang.com/reference/' target='_blank') http://jade-lang.com/reference/
+                li 3，本文针对的版本为1.1.3。maven地址为：
+                    #code
+                        ='<dependency>'
+                        br
+                        !='&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;de.neuland-bfi&lt;/groupId&gt;'
+                        br
+                        !='&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;jade4j&lt;/artifactId&gt;'
+                        br
+                        !='&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;1.1.3&lt;/version&gt;'
+                        br
+                        ='</dependency>'
+
+        a( style='color:red',href='baidu.com',class='button' ) test
+        div( style='background-image: url();background-position: center 0;background-size: cover;height:200px' )
+        p
+            a(class='button', href='google.com') Google
+
+        p
+            button(
+                type='button'
+                onclick="javascript:window.location.href='http://baidu.com' "
+            ) click me
+
+        p
+            input(type='checkbox', checked=true)
+
+            //a(style={color:'red'})
+        div#foo(data-bar="foo")&attributes({'data-foo': 'bar'})
+
+
+        p
+            - var currentUrl = flag
+            if(currentUrl=='test')
+                a(class='active', href='/') Home
+            else
+                a(class='active', href='/about') About
+            //这个版本不支持
+            //- var currentUrl = '/about'
+            //a(class={active: currentUrl === '/'} href='/') Home
+            //a(class={active: currentUrl === '/about'} href='/about') About
+        ol#books
+            for book in books
+                if book.available
+                    li #{book.name} for #{book.price}$
+
+
+        div
+
+                != temp
+
+
+        div
+            - var author = "enlore";
+            - var theGreat = "<span>escape!</span>";
+            p Written with love by #{author}
+            p Written with love by author
+            p This will be safe: !{theGreat}
+            p This will be safe: #{theGreat}
+
+        | Plain text can include <strong>html</strong>
+        p
+            | It must always be on its own line
+
+        script.
+            var usingJade = #{usingJade};
+            if (usingJade)
+                console.log('you are awesome');
+            else
+                console.log('use jade');
