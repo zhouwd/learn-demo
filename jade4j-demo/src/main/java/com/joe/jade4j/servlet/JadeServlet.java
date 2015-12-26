@@ -1,9 +1,7 @@
 package com.joe.jade4j.servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,9 +36,8 @@ public class JadeServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		URL url = JadeServlet.class.getClassLoader().getResource("/");
-		File file = new File(url.getPath());
-		TemplateLoader loader = new FileTemplateLoader(file.getPath(), "UTF-8");
+		String jadaPath=getServletContext().getRealPath("/templates");
+		TemplateLoader loader = new FileTemplateLoader(jadaPath, "UTF-8");
 		JadeConfiguration config = new JadeConfiguration();
 		config.setTemplateLoader(loader);
 		JadeTemplate template = config.getTemplate("/index");
