@@ -40,8 +40,9 @@ html
                         br
                         ='</dependency>'
 
-        a( style='color:red',href='baidu.com',class='button' ) test
-        div( style='background-image: url();background-position: center 0;background-size: cover;height:200px' )
+        //a( style='color:red',href='baidu.com',class='button' ) test
+        //div( style='background-image: url();background-position: center 0;background-size: cover;height:200px' ) url()会造成重复访问该地址
+        div( style='background-position: center 0;background-size: cover;height:200px' )
         p
             a(class='button', href='google.com') Google
 

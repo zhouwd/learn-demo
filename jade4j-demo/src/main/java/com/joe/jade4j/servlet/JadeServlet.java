@@ -2,10 +2,7 @@ package com.joe.jade4j.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,13 +34,12 @@ public class JadeServlet extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		String jadaPath=getServletContext().getRealPath("/templates");
+		String jadaPath = getServletContext().getRealPath("/templates");
 		TemplateLoader loader = new FileTemplateLoader(jadaPath, "UTF-8");
 		JadeConfiguration config = new JadeConfiguration();
 		config.setTemplateLoader(loader);
 		JadeTemplate template = config.getTemplate("/index");
 		String html = Jade4J.render(template, getMap());
-
 		System.out.println(html);
 		out.write(html);
 		out.flush();
@@ -62,7 +58,7 @@ public class JadeServlet extends HttpServlet {
 		model.put("temp", "<div>嵌<span style='color:green'>入</span>测试</div>");
 		model.put("flag", "test");
 		model.put("usingJade", true);
-		return  model;
+		return model;
 	}
 
 
